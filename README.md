@@ -1,2 +1,4 @@
 # QupidFlutter
-Flutter Application
+
+Tinder Like Dating Application using Flutter
+
