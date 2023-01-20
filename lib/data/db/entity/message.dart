@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Message {
   int epochTimeMs;
@@ -15,12 +15,12 @@ class Message {
     text = map['text'];
   }
 
-  Message.fromSnapshot(DocumentSnapshot snapshot) {
-    epochTimeMs = snapshot['epoch_time_ms'];
-    seen = snapshot['seen'];
-    senderId = snapshot['sender_id'];
-    text = snapshot['text'];
-  }
+  // Message.fromSnapshot(DocumentSnapshot snapshot) {
+  //   epochTimeMs = snapshot['epoch_time_ms'];
+  //   seen = snapshot['seen'];
+  //   senderId = snapshot['sender_id'];
+  //   text = snapshot['text'];
+  // }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

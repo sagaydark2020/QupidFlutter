@@ -4,13 +4,13 @@ import 'package:tinder_app_flutter/data/db/entity/chat.dart';
 import 'package:tinder_app_flutter/data/db/entity/message.dart';
 import 'package:tinder_app_flutter/data/db/remote/firebase_database_source.dart';
 import 'package:tinder_app_flutter/ui/widgets/chat_top_bar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tinder_app_flutter/ui/widgets/message_bubble.dart';
 import 'package:tinder_app_flutter/util/constants.dart';
 
 class ChatScreen extends StatelessWidget {
   final ScrollController _scrollController = new ScrollController();
-  final FirebaseDatabaseSource _databaseSource = FirebaseDatabaseSource();
+  // final FirebaseDatabaseSource _databaseSource = FirebaseDatabaseSource();
   final messageTextController = TextEditingController();
 
   static const String id = 'chat_screen';
@@ -30,8 +30,8 @@ class ChatScreen extends StatelessWidget {
       lastMessage.seen = true;
       Chat updatedChat = Chat(chatId, lastMessage);
 
-      _databaseSource.updateChat(updatedChat);
-      _databaseSource.updateMessage(chatId, messageId, lastMessage);
+      // _databaseSource.updateChat(updatedChat);
+      // _databaseSource.updateMessage(chatId, messageId, lastMessage);
     }
   }
 
@@ -49,59 +49,59 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-            title: StreamBuilder<DocumentSnapshot>(
-                stream: _databaseSource.observeUser(otherUserId),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) return Container();
-                  return ChatTopBar(user: AppUser.fromSnapshot(snapshot.data));
-                })),
-        body: Column(children: [
-          Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-                  stream: _databaseSource.observeMessages(chatId),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) return Container();
-                    List<Message> messages = [];
-                    snapshot.data.docs.forEach((element) {
-                      messages.add(Message.fromSnapshot(element));
-                    });
-                    if (snapshot.data.docs.length > 0) {
-                      checkAndUpdateLastMessageSeen(
-                          messages.first, snapshot.data.docs[0].id, myUserId);
-                    }
-                    if (_scrollController.hasClients)
-                      _scrollController.jumpTo(0.0);
-
-                    List<bool> showTimeList = new List<bool>(messages.length);
-
-                    for (int i = messages.length - 1; i >= 0; i--) {
-                      bool shouldShow = i == (messages.length - 1)
-                          ? true
-                          : shouldShowTime(messages[i], messages[i + 1]);
-                      showTimeList[i] = shouldShow;
-                    }
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      reverse: true,
-                      controller: _scrollController,
-                      itemCount: messages.length,
-                      itemBuilder: (context, index) {
-                        final item = messages[index];
-                        return ListTile(
-                          title: MessageBubble(
-                              epochTimeMs: item.epochTimeMs,
-                              text: item.text,
-                              isSenderMyUser:
-                                  messages[index].senderId == myUserId,
-                              includeTime: showTimeList[index]),
-                        );
-                      },
-                    );
-                  })),
-          getBottomContainer(context, myUserId)
-        ]));
+    // return Scaffold(
+    //     appBar: AppBar(
+    //         title: StreamBuilder<DocumentSnapshot>(
+    //             stream: _databaseSource.observeUser(otherUserId),
+    //             builder: (context, snapshot) {
+    //               if (!snapshot.hasData) return Container();
+    //               return ChatTopBar(user: AppUser.fromSnapshot(snapshot.data));
+    //             })),
+    //     body: Column(children: [
+    //       Expanded(
+    //           child: StreamBuilder<QuerySnapshot>(
+    //               stream: _databaseSource.observeMessages(chatId),
+    //               builder: (context, snapshot) {
+    //                 if (!snapshot.hasData) return Container();
+    //                 List<Message> messages = [];
+    //                 snapshot.data.docs.forEach((element) {
+    //                   messages.add(Message.fromSnapshot(element));
+    //                 });
+    //                 if (snapshot.data.docs.length > 0) {
+    //                   checkAndUpdateLastMessageSeen(
+    //                       messages.first, snapshot.data.docs[0].id, myUserId);
+    //                 }
+    //                 if (_scrollController.hasClients)
+    //                   _scrollController.jumpTo(0.0);
+    //
+    //                 List<bool> showTimeList = new List<bool>(messages.length);
+    //
+    //                 for (int i = messages.length - 1; i >= 0; i--) {
+    //                   bool shouldShow = i == (messages.length - 1)
+    //                       ? true
+    //                       : shouldShowTime(messages[i], messages[i + 1]);
+    //                   showTimeList[i] = shouldShow;
+    //                 }
+    //                 return ListView.builder(
+    //                   shrinkWrap: true,
+    //                   reverse: true,
+    //                   controller: _scrollController,
+    //                   itemCount: messages.length,
+    //                   itemBuilder: (context, index) {
+    //                     final item = messages[index];
+    //                     return ListTile(
+    //                       title: MessageBubble(
+    //                           epochTimeMs: item.epochTimeMs,
+    //                           text: item.text,
+    //                           isSenderMyUser:
+    //                               messages[index].senderId == myUserId,
+    //                           includeTime: showTimeList[index]),
+    //                     );
+    //                   },
+    //                 );
+    //               })),
+    //       getBottomContainer(context, myUserId)
+    //     ]));
   }
 
   void sendMessage(String myUserId) {
@@ -110,8 +110,8 @@ class ChatScreen extends StatelessWidget {
     Message message = Message(DateTime.now().millisecondsSinceEpoch, false,
         myUserId, messageTextController.text);
     Chat updatedChat = Chat(chatId, message);
-    _databaseSource.addMessage(chatId, message);
-    _databaseSource.updateChat(updatedChat);
+    // _databaseSource.addMessage(chatId, message);
+    // _databaseSource.updateChat(updatedChat);
     messageTextController.clear();
   }
 

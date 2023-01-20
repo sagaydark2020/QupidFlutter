@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class AppUser {
@@ -14,13 +14,13 @@ class AppUser {
       @required this.age,
       @required this.profilePhotoPath});
 
-  AppUser.fromSnapshot(DocumentSnapshot snapshot) {
-    id = snapshot['id'];
-    name = snapshot['name'];
-    age = snapshot['age'];
-    profilePhotoPath = snapshot['profile_photo_path'];
-    bio = snapshot.get('bio') ?? '';
-  }
+  // AppUser.fromSnapshot(DocumentSnapshot snapshot) {
+  //   id = snapshot['id'];
+  //   name = snapshot['name'];
+  //   age = snapshot['age'];
+  //   profilePhotoPath = snapshot['profile_photo_path'];
+  //   bio = snapshot.get('bio') ?? '';
+  // }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

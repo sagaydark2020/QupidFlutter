@@ -19,7 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void logoutPressed(UserProvider userProvider, BuildContext context) async {
-    userProvider.logoutUser();
+    // userProvider.logoutUser();
     Navigator.pop(context);
     Navigator.pushNamed(context, StartScreen.id);
   }
@@ -118,10 +118,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             onPressed: () async {
               final pickedFile =
                   await ImagePicker().getImage(source: ImageSource.gallery);
-              if (pickedFile != null) {
-                firebaseProvider.updateUserProfilePhoto(
-                    pickedFile.path, _scaffoldKey);
-              }
+              // if (pickedFile != null) {
+              //   firebaseProvider.updateUserProfilePhoto(
+              //       pickedFile.path, _scaffoldKey);
+              // }
             },
             iconData: Icons.edit,
             iconSize: 18,

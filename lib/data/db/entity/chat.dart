@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'message.dart';
 
 class Chat {
@@ -7,12 +7,12 @@ class Chat {
 
   Chat(this.id, this.lastMessage);
 
-  Chat.fromSnapshot(DocumentSnapshot snapshot) {
-    id = snapshot['id'];
-    lastMessage = snapshot['last_message'] != null
-        ? Message.fromMap(snapshot['last_message'])
-        : null;
-  }
+  // Chat.fromSnapshot(DocumentSnapshot snapshot) {
+  //   id = snapshot['id'];
+  //   lastMessage = snapshot['last_message'] != null
+  //       ? Message.fromMap(snapshot['last_message'])
+  //       : null;
+  // }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

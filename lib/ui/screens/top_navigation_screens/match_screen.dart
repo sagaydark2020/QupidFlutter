@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tinder_app_flutter/data/db/entity/app_user.dart';
@@ -20,39 +20,40 @@ class MatchScreen extends StatefulWidget {
 }
 
 class _MatchScreenState extends State<MatchScreen> {
-  final FirebaseDatabaseSource _databaseSource = FirebaseDatabaseSource();
+  // final FirebaseDatabaseSource _databaseSource = FirebaseDatabaseSource();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   List<String> _ignoreSwipeIds;
 
   Future<AppUser> loadPerson(String myUserId) async {
     if (_ignoreSwipeIds == null) {
       _ignoreSwipeIds = List<String>();
-      var swipes = await _databaseSource.getSwipes(myUserId);
-      for (var i = 0; i < swipes.size; i++) {
-        Swipe swipe = Swipe.fromSnapshot(swipes.docs[i]);
-        _ignoreSwipeIds.add(swipe.id);
-      }
+      // var swipes = await _databaseSource.getSwipes(myUserId);
+      // for (var i = 0; i < swipes.size; i++) {
+      //   Swipe swipe = Swipe.fromSnapshot(swipes.docs[i]);
+      //   _ignoreSwipeIds.add(swipe.id);
+      // }
       _ignoreSwipeIds.add(myUserId);
     }
-    var res = await _databaseSource.getPersonsToMatchWith(1, _ignoreSwipeIds);
-    if (res.docs.length > 0) {
-      var userToMatchWith = AppUser.fromSnapshot(res.docs.first);
-      return userToMatchWith;
-    } else {
-      return null;
-    }
+    // var res = await _databaseSource.getPersonsToMatchWith(1, _ignoreSwipeIds);
+    // if (res.docs.length > 0) {
+    //   var userToMatchWith = AppUser.fromSnapshot(res.docs.first);
+    //   return userToMatchWith;
+    // } else {
+    //   return null;
+    // }
+    return null;
   }
 
   void personSwiped(AppUser myUser, AppUser otherUser, bool isLiked) async {
-    _databaseSource.addSwipedUser(myUser.id, Swipe(otherUser.id, isLiked));
+   // _databaseSource.addSwipedUser(myUser.id, Swipe(otherUser.id, isLiked));
     _ignoreSwipeIds.add(otherUser.id);
 
     if (isLiked == true) {
       if (await isMatch(myUser, otherUser) == true) {
-        _databaseSource.addMatch(myUser.id, Match(otherUser.id));
-        _databaseSource.addMatch(otherUser.id, Match(myUser.id));
+        // _databaseSource.addMatch(myUser.id, Match(otherUser.id));
+        // _databaseSource.addMatch(otherUser.id, Match(myUser.id));
         String chatId = compareAndCombineIds(myUser.id, otherUser.id);
-        _databaseSource.addChat(Chat(chatId, null));
+        // _databaseSource.addChat(Chat(chatId, null));
 
         Navigator.pushNamed(context, MatchedScreen.id, arguments: {
           "my_user_id": myUser.id,
@@ -66,15 +67,15 @@ class _MatchScreenState extends State<MatchScreen> {
   }
 
   Future<bool> isMatch(AppUser myUser, AppUser otherUser) async {
-    DocumentSnapshot swipeSnapshot =
-        await _databaseSource.getSwipe(otherUser.id, myUser.id);
-    if (swipeSnapshot.exists) {
-      Swipe swipe = Swipe.fromSnapshot(swipeSnapshot);
-
-      if (swipe.liked == true) {
-        return true;
-      }
-    }
+    // DocumentSnapshot swipeSnapshot =
+    //     await _databaseSource.getSwipe(otherUser.id, myUser.id);
+    // if (swipeSnapshot.exists) {
+    //   Swipe swipe = Swipe.fromSnapshot(swipeSnapshot);
+    //
+    //   if (swipe.liked == true) {
+    //     return true;
+    //   }
+    // }
     return false;
   }
 

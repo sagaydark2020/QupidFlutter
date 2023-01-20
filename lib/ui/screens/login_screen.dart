@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tinder_app_flutter/data/db/remote/response.dart';
@@ -34,14 +34,14 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _isLoading = true;
     });
-    await _userProvider
-        .loginUser(_inputEmail, _inputPassword, _scaffoldKey)
-        .then((response) {
-      if (response is Success<UserCredential>) {
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil(TopNavigationScreen.id, (route) => false);
-      }
-    });
+    // await _userProvider
+    //     // .loginUser(_inputEmail, _inputPassword, _scaffoldKey)
+    //     // .then((response) {
+    //   if (response is Success<UserCredential>) {
+    //     Navigator.of(context)
+    //         .pushNamedAndRemoveUntil(TopNavigationScreen.id, (route) => false);
+    //   }
+    // });
     setState(() {
       _isLoading = false;
     });
